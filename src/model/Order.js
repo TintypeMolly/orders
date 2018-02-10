@@ -4,7 +4,7 @@ class Order {
     constructor(name, price, count, discount, memo) {
         this.name = name;
         this.price = price;
-        this.count = count,
+        this.count = count;
         this.discount = discount;
         this.memo = memo;
     }
