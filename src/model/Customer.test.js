@@ -1,5 +1,6 @@
 import Customer from './Customer';
 import Order from './Order';
+import { ObjectNotFoundError } from '../error';
 
 it('construction', () => {
     const customer = new Customer('Jim');
@@ -12,4 +13,19 @@ it('construction', () => {
     customer.addOrder(new Order('네그로니', 15000, 1, 0, ''));
     customer.addOrder(new Order('파우스트', 15000, 1, 0, '이 손님 집에 보내야겠다'));
     expect(customer.total).toEqual(111000);
+});
+
+it('remove', () => {
+    const customer = new Customer('홍길동');
+    const badOrder = new Order('Martini', 10000, 1, 0, 'shake');
+    const goodOrder = new Order('Martini', 10000, 1, 0, 'stir');
+    customer.addOrder(badOrder);
+    customer.removeOrder(badOrder);
+    expect(customer.orders.length).toEqual(0);
+    try {
+        customer.removeOrder(goodOrder);
+        expect(False).toBeTruthy();
+    } catch(e) {
+        expect(e instanceof ObjectNotFoundError).toBeTruthy();
+    }
 });

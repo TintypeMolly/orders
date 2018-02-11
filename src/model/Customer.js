@@ -1,3 +1,5 @@
+import { ObjectNotFoundError } from '../error'
+
 class Customer {
     constructor(name) {
         this.name = name;
@@ -5,7 +7,15 @@ class Customer {
     }
 
     addOrder(order) {
-        this.orders.push(order);
+        this.orders = this.orders.concat([order]);
+    }
+
+    removeOrder(order){
+        if (this.orders.includes(order)) {
+            this.orders = this.orders.filter(o => o !== order)
+        } else {
+            throw new ObjectNotFoundError()
+        }
     }
 
     get total() {
