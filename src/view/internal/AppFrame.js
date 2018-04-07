@@ -32,8 +32,10 @@ class AppFrame extends Component {
           title="Orders"
           iconStyleLeft={{display: 'none'}}
         />
-        <Route path="/hall" component={HallPage}/>
-        <Route path="/record" component={RecordPage}/>
+        <div className="page-holder">
+          <Route path="/hall" component={HallPage}/>
+          <Route path="/record" component={RecordPage}/>
+        </div>
         <BottomNavigation
           className="bottom-nav"
           selectedIndex={selectedIndex}

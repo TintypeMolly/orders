@@ -15,3 +15,11 @@ body {
 .bottom-nav-item > div > div {
   text-align: center;
 }
+
+.page-holder {
+  padding: 10px;
+}
+
+.page-holder > div {
+  padding: 10px;
+}
