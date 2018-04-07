@@ -4,6 +4,7 @@ class Order {
     this.price = price;
     this.count = count;
     this.memo = memo;
+    this.time = new Date();
   }
 
   get total() {

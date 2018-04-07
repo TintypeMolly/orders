@@ -5,6 +5,7 @@ class Receipt {
   constructor() {
     this.customers = [];
     this.discount = 0;
+    this.time = new Date();
   }
 
   addCustomer(customer) {
