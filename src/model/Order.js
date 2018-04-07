@@ -1,6 +1,3 @@
-import {ROUND_METHOD, ROUND_PRECISION} from '../config';
-
-
 class Order {
   constructor(name, price, count, memo) {
     this.name = name;
