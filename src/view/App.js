@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
+
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {
   amber500, amber700,
@@ -9,6 +10,9 @@ import {
   white, darkBlack, fullBlack,
 } from 'material-ui/styles/colors';
 import {fade} from 'material-ui/utils/colorManipulator';
+
+import AppFrame from './internal/AppFrame';
+
 
 const theme = getMuiTheme({
   palette: {
@@ -30,16 +34,14 @@ const theme = getMuiTheme({
   },
 });
 
-class App extends Component {
-  render() {
-    return (
-      <MuiThemeProvider muiTheme={theme}>
-        <AppBar
-          title="Orders"
-        />
-      </MuiThemeProvider>
-    );
-  }
+function App(props) {
+  return (
+    <MuiThemeProvider muiTheme={theme}>
+      <Router>
+        <Route path="/:path" component={AppFrame}/>
+      </Router>
+    </MuiThemeProvider>
+  );
 }
 
 export default App;

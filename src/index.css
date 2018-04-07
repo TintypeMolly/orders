@@ -3,3 +3,15 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.bottom-nav {
+  position: fixed !important;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  box-shadow: 0 0 20px 0 rgba(192,192,192,0.75);
+}
+
+.bottom-nav-item > div > div {
+  text-align: center;
+}
