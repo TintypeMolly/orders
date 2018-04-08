@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 
-import Paper from 'material-ui/Paper'
-import {GridList, GridTile} from 'material-ui/GridList';
+import Paper from 'material-ui/Paper';
+
+import Tables from './Tables';
 
 
 class HallPage extends Component {
@@ -9,12 +10,7 @@ class HallPage extends Component {
     return (
       <Paper>
         <h4>홀 현황</h4>
-        <GridList>
-          <GridTile/>
-          <GridTile/>
-          <GridTile/>
-          <GridTile/>
-        </GridList>
+        <Tables/>
       </Paper>
     );
   }
