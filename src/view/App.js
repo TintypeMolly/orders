@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -39,10 +39,12 @@ function App(props) {
     <MuiThemeProvider muiTheme={theme}>
       <Router>
         <div>
-          <Route path="/">
-            <Redirect to="/hall"/>
-          </Route>
-          <Route path="/:path" component={AppFrame}/>
+          <Switch>
+            <Route exact path="/">
+              <Redirect to="/hall"/>
+            </Route>
+            <Route path="/:path" component={AppFrame}/>
+          </Switch>
         </div>
       </Router>
     </MuiThemeProvider>
