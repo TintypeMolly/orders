@@ -1,11 +1,15 @@
 import React, {Component} from 'react';
 
+import IconButton from 'material-ui/IconButton';
+import AddIcon from 'material-ui/svg-icons/content/add';
+import Chip from 'material-ui/Chip';
+
 import tableSettings from '../../../controller/TableSettings';
 
 import './Tables.css';
 
 
-class Tables extends Component {
+class TableHolder extends Component {
   state = {
     customers: []
   };
@@ -13,10 +17,15 @@ class Tables extends Component {
   render() {
     console.log(tableSettings.tables);
     return (
-      <div className="hall-tables-holder" style={{width: tableSettings.width, height: tableSettings.height}}>
+      <div
+        style={{
+          width: tableSettings.width, height: tableSettings.height,
+          position: 'relative',
+        }}
+      >
         {
-          tableSettings.tables.map((table, tableIndex) => {
-            return <div className="hall-tables-table" key={tableIndex}>{table.posX} & {table.posY}</div>
+          tableSettings.tables.map((tableInfo, tableIndex) => {
+            return <Table key={tableIndex} tableIndex={tableIndex} tableInfo={tableInfo}/>
           })
         }
       </div>
@@ -24,4 +33,24 @@ class Tables extends Component {
   }
 }
 
-export default Tables;
+class Table extends Component {
+  render() {
+    return (
+      <div
+        className="hall-tables-table"
+        style={{
+          top: this.props.tableInfo.posY,
+          left: this.props.tableInfo.posX,
+        }}
+      >
+        <h4 className="hall-tables-table-label">{this.props.tableIndex + 1}번 테이블</h4>
+        <Chip className="hall-tables-table-customer">익명의 남자 손님</Chip>
+        <Chip className="hall-tables-table-customer">익명의 여자 손님</Chip>
+        <Chip className="hall-tables-table-customer">익명의 강아지 손님하하하하</Chip>
+        <IconButton tooltip="손님 추가" className="hall-tables-table-add-button"><AddIcon/></IconButton>
+      </div>
+    )
+  }
+}
+
+export default TableHolder;

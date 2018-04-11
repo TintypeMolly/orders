@@ -89,8 +89,13 @@ class TableSettings {
 
 function getTableSettings() {
   try {
-    const localDataString = localStorage.getItem(TABLE_SETTINGS_KEY);
-    const localData = JSON.parse(localDataString);
+    //const localDataString = localStorage.getItem(TABLE_SETTINGS_KEY);
+    //const localData = JSON.parse(localDataString);
+    // TODO Remove test data
+    const localData = {
+      width: 960, height: 960,
+      tables: [{posX: 0, posY: 0}, {posX: 120, posY: 120}, {posX: 600, posY: 10}],
+    };
     return new TableSettings(
       localData.width, localData.height,
       localData.tables.map(tableData => (new Table(tableData.posX, tableData.posY))),
