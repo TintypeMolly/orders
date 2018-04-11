@@ -1,51 +1,102 @@
 const TABLE_SETTINGS_KEY = 'tableSettings';
-const DEFAULT_ROWS = 10;
-const DEFAULT_COLS = 10;
+const DEFAULT_WIDTH = 960;
+const DEFAULT_HEIGHT = 960;
+
+class Table {
+  constructor(posX, posY) {
+    this._posX = posX;
+    this._posY = posY;
+    this._parent = null;
+  }
+
+  get posX() {
+    return this._posX;
+  }
+
+  set posX(posX) {
+    this._posX = posX;
+    this._parent.save();
+  }
+
+  get posY() {
+    return this._posY;
+  }
+
+  set posY(posY) {
+    this._posY = posY;
+    this._parent.save();
+  }
+
+  set parent(parent) {
+    this._parent = parent;
+  }
+
+  get parent() {
+    return this._parent;
+  }
+}
 
 class TableSettings {
-  constructor(rows, cols, tables) {
-    this._rows = rows;
-    this._cols = cols;
-    if (tables && tables.length === rows && tables.reduce((acc, row) => acc && row.length === cols, true)) {
-      this._tables = tables;
-    } else {
-      this._tables = new Array(rows).fill(new Array(cols).fill(true));
-    }
+  constructor(width, height, tables) {
+    this._width = width;
+    this._height = height;
+    this.tables = tables;
   }
 
-  get cols() {
-    return this._cols;
+  static getDefaultTableSettings() {
+    const defaultTable = new TableSettings(DEFAULT_WIDTH, DEFAULT_HEIGHT, []);
+    defaultTable.addTable(new Table(0, 0));
+    return defaultTable;
   }
 
-  get rows() {
-    return this._rows;
+  get width() {
+    return this._width;
   }
 
-  get tables() {
-    return this._tables;
+  set width(width) {
+    this._width = width;
+    this.save();
   }
 
-  setTableCondition(row, col, condition) {
-    this._tables[row][col] = condition;
+  get height() {
+    return this._height;
+  }
+
+  set height(height) {
+    this._height = height;
+    this.save();
+  }
+
+  addTable(table) {
+    this.tables.push(table);
+    table.parent = this;
+    this.save();
+  }
+
+  removeTable(table) {
+    this.tables = this.tables.filter(t => t !== table);
     this.save();
   }
 
   save() {
     localStorage.setItem(TABLE_SETTINGS_KEY, JSON.stringify({
-      rows: this._rows,
-      cols: this._cols,
-      tables: this._tables,
+      width: this.width,
+      height: this.height,
+      tables: this.tables.map(t => ({posX: t.posX, posY: t.posY})),
     }));
   }
 }
 
 function getTableSettings() {
-  const localDataString = localStorage.getItem(TABLE_SETTINGS_KEY);
-  if (localDataString) {
+  try {
+    const localDataString = localStorage.getItem(TABLE_SETTINGS_KEY);
     const localData = JSON.parse(localDataString);
-    return new TableSettings(localData.rows, localData.cols, localData.tables);
-  } else {
-    const defaultTableSettings = new TableSettings(DEFAULT_ROWS, DEFAULT_COLS);
+    return new TableSettings(
+      localData.width, localData.height,
+      localData.tables.map(tableData => (new Table(tableData.posX, tableData.posY))),
+    );
+  } catch (e) {
+    const defaultTableSettings = TableSettings.getDefaultTableSettings();
     defaultTableSettings.save();
     return defaultTableSettings;
   }

@@ -13,22 +13,11 @@ class Tables extends Component {
   render() {
     console.log(tableSettings.tables);
     return (
-      <div className="hall-tables-holder">
+      <div className="hall-tables-holder" style={{width: tableSettings.width, height: tableSettings.height}}>
         {
-          tableSettings.tables.map((row, rowIdx) => (
-            <div key={`hall-tables-row-${rowIdx}`} className="hall-tables-row">
-              {
-                row.map((tableCondition, colIdx) => {
-                  const cellClassName = tableCondition ? 'hall-tables-cell active' : 'hall-tables-cell inactive';
-                  return (
-                    <div key={`hall-tables-cell-${rowIdx}-${colIdx}`} className={cellClassName}>
-                      hey
-                    </div>
-                  )
-                })
-              }
-            </div>
-          ))
+          tableSettings.tables.map((table, tableIndex) => {
+            return <div className="hall-tables-table" key={tableIndex}>{table.posX} & {table.posY}</div>
+          })
         }
       </div>
     );
