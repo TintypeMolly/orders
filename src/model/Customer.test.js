@@ -1,6 +1,6 @@
-import Customer from './Customer';
-import Order from './Order';
-import {ObjectNotFoundError} from '../error';
+import Customer from "./Customer"
+import Order from "./Order"
+import { ObjectNotFoundError } from "../error"
 
 
 it('construction', () => {
@@ -43,3 +43,117 @@ it('removeByValue', () => {
     expect(e instanceof ObjectNotFoundError).toBeTruthy();
   }
 });
+
+// @ponicode
+describe("addOrder", () => {
+    let inst
+
+    beforeEach(() => {
+        inst = new Customer.default("Edmond")
+    })
+
+    test("0", () => {
+        let callFunction = () => {
+            inst.addOrder("draft")
+        }
+    
+        expect(callFunction).not.toThrow()
+    })
+
+    test("1", () => {
+        let callFunction = () => {
+            inst.addOrder("processing")
+        }
+    
+        expect(callFunction).not.toThrow()
+    })
+
+    test("2", () => {
+        let callFunction = () => {
+            inst.addOrder("canceled")
+        }
+    
+        expect(callFunction).not.toThrow()
+    })
+
+    test("3", () => {
+        let callFunction = () => {
+            inst.addOrder("pending")
+        }
+    
+        expect(callFunction).not.toThrow()
+    })
+
+    test("4", () => {
+        let callFunction = () => {
+            inst.addOrder("completed")
+        }
+    
+        expect(callFunction).not.toThrow()
+    })
+
+    test("5", () => {
+        let callFunction = () => {
+            inst.addOrder(undefined)
+        }
+    
+        expect(callFunction).not.toThrow()
+    })
+})
+
+// @ponicode
+describe("removeOrder", () => {
+    let inst
+
+    beforeEach(() => {
+        inst = new Customer.default("Jean-Philippe")
+    })
+
+    test("0", () => {
+        let callFunction = () => {
+            inst.removeOrder("a1969970175")
+        }
+    
+        expect(callFunction).not.toThrow()
+    })
+
+    test("1", () => {
+        let callFunction = () => {
+            inst.removeOrder(12)
+        }
+    
+        expect(callFunction).not.toThrow()
+    })
+
+    test("2", () => {
+        let callFunction = () => {
+            inst.removeOrder(12345)
+        }
+    
+        expect(callFunction).not.toThrow()
+    })
+
+    test("3", () => {
+        let callFunction = () => {
+            inst.removeOrder(987650)
+        }
+    
+        expect(callFunction).not.toThrow()
+    })
+
+    test("4", () => {
+        let callFunction = () => {
+            inst.removeOrder(56784)
+        }
+    
+        expect(callFunction).not.toThrow()
+    })
+
+    test("5", () => {
+        let callFunction = () => {
+            inst.removeOrder(Infinity)
+        }
+    
+        expect(callFunction).not.toThrow()
+    })
+})
